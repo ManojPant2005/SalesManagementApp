@@ -1,0 +1,67 @@
+﻿@page "/Charts"
+@using Syncfusion.Blazor.Charts
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Notifications
+@using Syncfusion.Blazor.Data
+@using System.Timers
+@inject ISalesOrderReportService SalesOrderReportService
+
+<h3>Charts</h3>
+
+<div class="mt-3">
+    <SfChart Title="Sales Gross/ Month">
+        <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category">
+        </ChartPrimaryXAxis>
+        <ChartSeriesCollection>
+            <ChartSeries DataSource="@GrossSalesPricePerMonthData"
+              XName="GroupedFieldKey" YName="Price" Type="ChartSeriesType.Bar"
+            ></ChartSeries>
+        </ChartSeriesCollection>
+    </SfChart>
+</div>
+<div class="mt-3">
+    <SfAccumulationChart Title="Qty / Product Category">
+        <AccumulationChartLegendSettings Visible="true" Position="LegendPosition.Top">
+            <AccumulationChartTooltipSettings Enable="true">
+            </AccumulationChartTooltipSettings>
+            <AccumulationChartSeriesCollection>
+                <AccumulationChartSeries DataSource="@GroupedFieldQtyData"
+                                         XName="GroupFieldKey" YName="Qty" Radius="70%"
+                                         InnerRadius="40%" Name="QtyPerProductCategory"
+                                         Explode="true" ExplodeOffset="10%" ExplodeIndex="3">
+                    <AccumulationDataLabelSettings Visible="true" Name="label">
+                        <AccumulationChartDataLabelFont FontWeight="600" Color="White">
+                        </AccumulationChartDataLabelFont>
+                    </AccumulationDataLabelSettings>
+                </AccumulationChartSeries>
+            </AccumulationChartSeriesCollection>
+        </AccumulationChartLegendSettings>
+    </SfAccumulationChart>
+    <div class="mt-3">
+        <SfChart Title="Qty / Month">
+            <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category">
+            </ChartPrimaryXAxis>
+            <ChartSeriesCollection>
+                <ChartSeries XName="GroupedFieldKey"
+                             YName="Qty" Type="ChartSeriesType.Line">
+
+                </ChartSeries>
+            </ChartSeriesCollection>
+        </SfChart>
+    </div>
+</div>
+@code {
+    List<GroupFieldPriceModel> GrossSalesPricePerMonthData { get; set; }
+    List<GroupFieldQtyModel> GroupedFieldQtyData { get; set; }
+   
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        GrossSalesPricePerMonthData = await SalesOrderReportService.GetEmployeePricePerMonthData();
+        GroupedFieldQtyData = await SalesOrderReportService.GetQtyPerProductCategory();
+        
+
+    }
+}
