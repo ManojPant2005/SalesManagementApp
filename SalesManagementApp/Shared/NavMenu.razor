@@ -12,14 +12,14 @@
         <div class="nav-item px-3 d-sm-none">
             <LoginDisplay />
         </div>
-        <AuthorizeView>
+        <AuthorizeView Roles="SM, TL, SR ">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="SMDashboard">
                     <i class="fa fa-pie-chart"></i>&nbsp;&nbsp;Dashboard
                 </NavLink>
             </div>
         </AuthorizeView>
-        <AuthorizeView>
+        <AuthorizeView Roles="Admin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="EmployeeManagement">
                     <i class="fa fa-users"></i>&nbsp;&nbsp;Admin
@@ -27,14 +27,14 @@
             </div>
         </AuthorizeView>
 
-        <AuthorizeView>
+        <AuthorizeView Roles="SM, TL, SR ">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="Organisation">
                     <i class="fa fa-sitemap"></i>&nbsp;&nbsp;Organisation
                 </NavLink>
             </div>
         </AuthorizeView>
-        <AuthorizeView>
+        <AuthorizeView Roles="SM, TL, SR , Admin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="Appointments">
                     <i class="fa fa-calendar"></i>&nbsp;&nbsp;Appointments
